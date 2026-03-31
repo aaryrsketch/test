@@ -5,7 +5,8 @@ from db import already_scanned_today,save_scan
 
 def scan_page():
     st.title("Daily Waste Scan")
-   
+    if st.button("Leaderboard"):
+        st.switch_page("pages/leader.py")
     uploaded_file = st.file_uploader("Upload your timestamped waste photo", type=["jpg", "jpeg", "png"])
     logout=st.button("logout")
     if logout:
@@ -27,6 +28,7 @@ def scan_page():
                     save_scan(user_id, result["categories"], 100)
                     st.badge("Scan verified! +100 XP")
                     st.write("Waste categories detected:", ", ".join(result["categories"]))
+                    
             else:
                 st.error(f"Scan rejected: {result['reason']}")
 scan_page()
